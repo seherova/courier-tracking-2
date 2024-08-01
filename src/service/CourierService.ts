@@ -3,7 +3,6 @@ import { Courier } from "../entity/Courier";
 
 class CourierService{
     private couriers : Courier[] = [];
-    
 
     constructor(couriers: Courier[]){
         this.couriers = couriers;

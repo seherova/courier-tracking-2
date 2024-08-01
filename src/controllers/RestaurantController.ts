@@ -1,15 +1,26 @@
+import { IRestaurant, Restaurant } from "../entity/Restaurant";
 import { RestaurantService } from "../service/RestaurantService";
 import { Request,Response } from "express";
 
 class RestaurantController{
-    restauranService : RestaurantService;
+    //restauranService : RestaurantService;
+    
+/*
+    constructor(restaurantService: RestaurantService){
+       // this.restauranService  = restaurantService;
+    }
+    */
+
+    public addRestaurant(req: Request, res : Response) {
+        console.log(req.body);
+        const {name, latitude, longitude} = req.body as IRestaurant;
+
     
 
-    constructor(restaurantService: RestaurantService){
-        this.restauranService  = restaurantService;
-    }
+        const rest = new Restaurant(name, latitude, longitude);
 
-    public addRestaurant = (req: Request, res : Response) : void => {
+        console.log(rest);
+        res.status(201).json(rest);
 
     }
     
@@ -22,4 +33,4 @@ class RestaurantController{
     }
 
 }
-export {RestaurantController};
+export const restaurantController = new RestaurantController(); //instance oluşturduk. routes için (herhangi bi class)

@@ -1,12 +1,14 @@
 import { Router } from "express";
-import { RestaurantController } from "../controllers/RestaurantController";
+import { restaurantController } from "../controllers/RestaurantController";
 
-
-const restaurantRoutes = ( restaurantController: RestaurantController): Router => {
+export const restaurantRoutes = ( ): Router => {
+    
     const router = Router();
 
-    router.post('/', restaurantController.addRestaurant);
+    router.post('/restaurants', restaurantController.addRestaurant);
     router.get('/restaurants', restaurantController.getAllRestaurant);
-    router.get('/:id/restaurantLocation:' , restaurantController.)
+    router.get('/:id/restaurantLocation:' , restaurantController.getRestaurantLocation);
 
+    return router;
 }
+
