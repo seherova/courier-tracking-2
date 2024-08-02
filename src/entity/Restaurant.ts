@@ -8,18 +8,23 @@ export interface RestaurantEntity {
 }
 
 export class Restaurant {
+  private _db;
   id?: string;
   constructor(
-    public name: string,
-    public latitude: number,
-    public longitude: number
-  ) {}
+    public name?: string,
+    public latitude?: number,
+    public longitude?: number
+  ) {
+this._db = MongoDBClient.db;
+  }
 
   save() {
-    const db = MongoDBClient.db;
+    if (this.name && this.latitude && this.longitude) {
+
+   
     //const courierCollections = db.collection('Restaurant')
     const restaurantCollections: Collection<RestaurantEntity> =
-      db.collection("Restaurant");
+      this._db.collection("Restaurant");
 
     try {
 
@@ -33,6 +38,14 @@ export class Restaurant {
       console.error("Failed to save restaurant", e);
       throw new Error("Failed to save restaurant");
     }
+  } else {
+    throw new Error("Failed to save restaurant");
+  }
+  }
+  async delete(id: string){
+    const rest = await this._db.findOne({
+      id
+    })
   }
 }
 
