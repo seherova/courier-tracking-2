@@ -1,24 +1,22 @@
 import { Restaurant } from "../entity/Restaurant";
 
-class RestaurantService{
-    private restaurants: Restaurant[] = []
+class RestaurantService {
+  private restaurants: Restaurant[] = [];
 
-    constructor(restaurants: Restaurant[]){
-        this.restaurants = restaurants;
-    }
+  constructor(restaurants: Restaurant[]) {
+    this.restaurants = restaurants;
+  }
 
-    addRestaurant(restaurant: Restaurant){
-        this.restaurants.push(restaurant);
-    }
+  addRestaurant(restaurant: Restaurant) {
+    this.restaurants.push(restaurant);
+  }
 
-    getAllRestaurants(){
-        return this.restaurants;
-    }
+  getAllRestaurants() {
+    return this.restaurants;
+  }
 
-    deleteRestaurant(){
+  deleteRestaurant() {}
 
-    }
-
-    //restoranın konumları gelecek
+  //restoranın konumları gelecek
 }
-export {RestaurantService};
+export { RestaurantService };

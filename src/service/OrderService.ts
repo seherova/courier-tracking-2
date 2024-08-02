@@ -1,14 +1,10 @@
 import { Courier } from "../entity/Courier";
 import { Restaurant } from "../entity/Restaurant";
 
-class OrderService{
+class OrderService {
+  public courier: Courier;
+  public restaurant: Restaurant;
 
-    public courier : Courier;
-    public restaurant: Restaurant;
-
-    static findNearestRestaurantforCouriers(){
-        
-
-    }
+  static findNearestRestaurantforCouriers() {}
 }
-export {OrderService};
+export { OrderService };

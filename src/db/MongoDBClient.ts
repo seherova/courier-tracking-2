@@ -1,9 +1,8 @@
 import { Db, MongoClient } from "mongodb";
 
-
 export class MongoDBClient {
   private static instance: MongoDBClient;
- // private _client: any;
+  // private _client: any;
   private _database: any;
 
   constructor() {
@@ -13,7 +12,8 @@ export class MongoDBClient {
   }
 
   private async initDatabase() {
-    const uri = "mongodb+srv://ovaseher1:YEtF8GAZvxcidF8A@cluster0.lmaw3d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0%22";
+    const uri =
+      "mongodb+srv://ovaseher1:YEtF8GAZvxcidF8A@cluster0.lmaw3d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0%22";
 
     const dbName = "myDatabase";
 
@@ -29,7 +29,6 @@ export class MongoDBClient {
   }
 
   static get db() {
-
     return this.getInstance()._database;
   }
 }
@@ -46,4 +45,4 @@ export class MongoDBClient {
 //     console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
 //   }
 
-  //bunun üzerinden mongo db ye ulaşacağım.
+//bunun üzerinden mongo db ye ulaşacağım.

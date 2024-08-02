@@ -1,3 +1,1 @@
-class DistanceCalculator{
-    
-}
+class DistanceCalculator {}

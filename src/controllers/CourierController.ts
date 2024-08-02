@@ -1,29 +1,52 @@
-import { Request,Response } from "express";
+import { Request, Response } from "express";
 import { CourierService } from "../service/CourierService";
-import { ICourier } from "../entity/Courier";
+import { Courier, CourierEntity } from "../entity/Courier";
 
-
-class CourierController{
-    //private courierService: CourierService;
+class CourierController {
+  //private courierService: CourierService;
   /*  constructor(courierService: CourierService){
         this.courierService = courierService;
     }
 */
-    public addCourier = (req: Request, res: Response): void => {
-        console.log(req.body);
-        const {name, surname, latitude, longitude, isAvailable} = req.body as ICourier;
 
-    };
-
-    public getAllCouriers = (req : Request, res : Response): void => {
-
-    }
-
-    public getCourierLocation = (req : Request, res : Response): void => {
-
-    }
+private _innerCourierAddFn = (courier: Courier) => {
   
+  const{name, surname, latitude, longitude, isAvailable} = courier;
 
+  const courier_ : Courier = new Courier(name, surname, latitude, longitude, isAvailable);
+  return courier_.save();
+}
+
+  public addCouriers = async (req: Request, res: Response) => {
+   
+    console.log(req.body);
+    const couriers = req.body as Courier[];
+
+    try{
+      for(const courier of couriers){
+         
+          await this._innerCourierAddFn(courier)
+      }
+      res.status(201).send("OK");
+    } catch (err:any){
+      res.status(400).send(err.message);
+    }
+  };
+
+  public addCourier= async(req: Request, res: Response)=> { 
+    try{
+      await this._innerCourierAddFn(req.body);
+      res.status(201).send("OK");
+    } catch(err: any){
+      res.status(400).send(err.message);
+    }
+  };
+   
+
+  public getAllCouriers = (req: Request, res: Response): void => {};
+
+  public getCourierLocation = (req: Request, res: Response): void => {};
+  
 }
 
 export const courierController = new CourierController();
