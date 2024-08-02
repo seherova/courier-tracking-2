@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { CourierController } from "../controllers/CourierController";
+import { courierController } from "../controllers/CourierController";
 
-const courierRoutes = (courierController : CourierController): Router => {
+export const courierRoutes = (): Router => {
     const router = Router();
 
-    router.post('/', courierController.addCourier);
+    router.post('/couriers', courierController.addCourier);
     router.get('/couriers', courierController.getAllCouriers);
-    router.get('/:id/location', courierController.getCourierLocation);
+    router.get('/:id/courierlocation', courierController.getCourierLocation);
 
     return router;
 }
-export {courierRoutes};
+

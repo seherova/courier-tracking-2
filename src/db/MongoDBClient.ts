@@ -1,8 +1,7 @@
 import { Db, MongoClient } from "mongodb";
 
 
-
-class MongoDBClient {
+export class MongoDBClient {
   private static instance: MongoDBClient;
  // private _client: any;
   private _database: any;
@@ -14,8 +13,7 @@ class MongoDBClient {
   }
 
   private async initDatabase() {
-    const uri =
-      "mongodb+srv://<user>:<password>@<cluster-url>?retryWrites=true&w=majority";
+    const uri = "mongodb+srv://ovaseher1:YEtF8GAZvxcidF8A@cluster0.lmaw3d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0%22";
 
     const dbName = "myDatabase";
 
@@ -23,9 +21,6 @@ class MongoDBClient {
     this._database = client.db(dbName);
     await client.connect();
   }
-
-
-
   static getInstance() {
     if (this.instance) {
       return this.instance;
@@ -33,20 +28,22 @@ class MongoDBClient {
     return new MongoDBClient();
   }
 
-
   static get db() {
+
     return this.getInstance()._database;
   }
 }
 
-restCollection
-const restCollection = MongoDBClient.db.collection("restaurants")
+//restCollection
+// const restCollection = MongoDBClient.db.collection("restaurants")
 
-try {
-    const insertManyResult = await restCollection.insertMany({
-        restName: "sdasa"
-    });
-    console.log(`${insertManyResult.insertedCount} documents successfully inserted.\n`);
-  } catch (err) {
-    console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
-  }
+// try {
+//     const insertManyResult = await restCollection.insertMany({
+//         restName: "sdasa"
+//     });
+//     console.log(`${insertManyResult.insertedCount} documents successfully inserted.\n`);
+//   } catch (err) {
+//     console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
+//   }
+
+  //bunun üzerinden mongo db ye ulaşacağım.
