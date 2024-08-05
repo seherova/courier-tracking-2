@@ -10,6 +10,7 @@ export const restaurantRoutes = ( ): Router => {
     router.post('/restaurants', restaurantController.addRestaurants);
     router.get('/restaurants', restaurantController.getAllRestaurant);
     router.get('/:id/restaurantLocation:' , restaurantController.getRestaurantLocation);
+    router.delete('/restaurant/:id', restaurantController.deleteRestaurant);
 
     return router;
 }

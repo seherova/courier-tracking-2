@@ -15,7 +15,7 @@ private _innerCourierAddFn = (courier: Courier) => {
 
   const courier_ : Courier = new Courier(name, surname, latitude, longitude, isAvailable);
   return courier_.save();
-}
+};
 
   public addCouriers = async (req: Request, res: Response) => {
    
@@ -41,7 +41,6 @@ private _innerCourierAddFn = (courier: Courier) => {
       res.status(400).send(err.message);
     }
   };
-   
 
   public getAllCouriers = (req: Request, res: Response): void => {};
 

@@ -1,4 +1,5 @@
-import { Restaurant } from "../entity/Restaurant";
+import { Collection } from "mongodb";
+import { Restaurant, RestaurantEntity } from "../entity/Restaurant";
 import { RestaurantService } from "../service/RestaurantService";
 import { Request, Response } from "express";
 
@@ -39,6 +40,20 @@ class RestaurantController {
       res.status(400).send(err.message);
     }
   };
+  
+  public deleteRestaurant = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const restaurant = new Restaurant();
+      await restaurant.delete(id);
+      res.status(200).send("Restaurant deleted successfully!");
+    } catch (err: any) {
+      res.status(400).send(err.message);
+    }
+  };
+
+ 
 
   public getAllRestaurant = (req: Request, res: Response): void => {};
 

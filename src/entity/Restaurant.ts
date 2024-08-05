@@ -1,4 +1,4 @@
-import { Collection } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 import { MongoDBClient } from "../db/MongoDBClient";
 
 export interface RestaurantEntity {
@@ -15,13 +15,13 @@ export class Restaurant {
     public latitude?: number,
     public longitude?: number
   ) {
-this._db = MongoDBClient.db;
+    this._db = MongoDBClient.db;
   }
+
 
   save() {
     if (this.name && this.latitude && this.longitude) {
 
-   
     //const courierCollections = db.collection('Restaurant')
     const restaurantCollections: Collection<RestaurantEntity> =
       this._db.collection("Restaurant");
@@ -42,10 +42,27 @@ this._db = MongoDBClient.db;
     throw new Error("Failed to save restaurant");
   }
   }
+  /*
   async delete(id: string){
     const rest = await this._db.findOne({
       id
     })
+  }
+  */
+  async delete(id: string) {
+    const restaurantCollections: Collection<RestaurantEntity> =
+      this._db.collection("Restaurant");
+
+    try {
+      const objectId = new ObjectId(id);
+      const result = await restaurantCollections.deleteOne({ _id: objectId });
+      if (result.deletedCount === 0) {
+        throw new Error("Failed to delete restaurant: Not found");
+      }
+    } catch (e: any) {
+      console.error("Failed to delete restaurant", e);
+      throw new Error("Failed to delete restaurant");
+    }
   }
 }
 
