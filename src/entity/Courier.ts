@@ -61,8 +61,28 @@ export class Courier{
     }catch(err: any){
       console.error('Failed to error courier ', err)
       throw new Error('Failed to delete courier')
-
     }
-    
+  }
+
+  async update(id: string, updateData: Partial<CourierEntity>): Promise<void>{
+    const courierCollections : Collection<CourierEntity> = this._db.collection('Courier');
+
+    try{
+      const objectId = new ObjectId(id)
+
+      const result = await courierCollections.updateOne(
+        {_id: objectId}, 
+        {$set : updateData} //sadece belirtilen alanlar güncellenecek
+        );
+
+      if(result.matchedCount === 0){
+        throw new Error('Failed to updated courier: Not found');
+      }
+    }catch(e: any){
+      console.error('Failed to updated courier:',e);
+      throw new Error('Failed to update courier');
+    }
+
+
   }
 }
