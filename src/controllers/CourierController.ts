@@ -42,6 +42,20 @@ private _innerCourierAddFn = (courier: Courier) => {
     }
   };
 
+  deleteCourier = async(req:Request, res: Response) => {
+    const {id} = req.params;
+
+    try{
+      const courier = new Courier;
+      await courier.delete(id);
+      res.status(200).send('Courier deleted succesfully!')
+    } catch(err: any){
+      res.status(400).send(err.message);
+
+    }
+
+  }
+
   public getAllCouriers = (req: Request, res: Response): void => {};
 
   public getCourierLocation = (req: Request, res: Response): void => {};

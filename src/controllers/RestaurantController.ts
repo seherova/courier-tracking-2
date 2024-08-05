@@ -40,18 +40,18 @@ class RestaurantController {
       res.status(400).send(err.message);
     }
   };
-  
-  public deleteRestaurant = async (req: Request, res: Response) => {
-    const { id } = req.params;
 
-    try {
-      const restaurant = new Restaurant();
-      await restaurant.delete(id);
-      res.status(200).send("Restaurant deleted successfully!");
-    } catch (err: any) {
-      res.status(400).send(err.message);
+  deleteRestaurant = async (req : Request, res: Response) => {
+    const {id} = req.params;
+
+    try{
+        const restaurant = new Restaurant();
+        await restaurant.delete(id);
+        res.status(200).send('Restaurant deleted successfully!')
+    }catch(err: any){
+        res.status(400).send(err.message);
     }
-  };
+    };
 
  
 

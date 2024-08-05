@@ -7,7 +7,7 @@ export class MongoDBClient {
 
   constructor() {
     // const collectionName = "recipes";
-    //   const collection = database.collection(collectionName);
+    //   const collection = database(collectionName);
     this.initDatabase();
   }
 
@@ -19,6 +19,7 @@ export class MongoDBClient {
 
     const client = new MongoClient(uri);
     this._database = client.db(dbName);
+    
     await client.connect();
   }
   static getInstance() {

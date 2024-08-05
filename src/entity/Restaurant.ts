@@ -49,20 +49,21 @@ export class Restaurant {
     })
   }
   */
-  async delete(id: string) {
-    const restaurantCollections: Collection<RestaurantEntity> =
-      this._db.collection("Restaurant");
+  async delete(id: string){
+    const restaurantCollections: Collection<RestaurantEntity> =this._db.collection('Restaurant');
 
-    try {
+    try{
       const objectId = new ObjectId(id);
-      const result = await restaurantCollections.deleteOne({ _id: objectId });
-      if (result.deletedCount === 0) {
-        throw new Error("Failed to delete restaurant: Not found");
+      const result = await restaurantCollections.deleteOne({_id: objectId}); //mongodb deki _id si objectId eşleştiğinde o restoran siliniyor
+
+      if(result.deletedCount === 0 ){
+        throw new Error('Failed to delete restaurant: Not found')
       }
-    } catch (e: any) {
-      console.error("Failed to delete restaurant", e);
-      throw new Error("Failed to delete restaurant");
+    }catch(e: any){
+      console.error("Failed to delete restaurant ", e);
+      throw new Error('Failed to delete restaurant');
     }
+
   }
 }
 

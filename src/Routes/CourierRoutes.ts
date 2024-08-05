@@ -8,6 +8,7 @@ export const courierRoutes = (): Router => {
     router.post('/courier', courierController.addCourier);
     router.get('/couriers', courierController.getAllCouriers);
     router.get('/:id/courierlocation', courierController.getCourierLocation);
+    router.delete('/courier/:id', courierController.deleteCourier);
 
     return router;
 }

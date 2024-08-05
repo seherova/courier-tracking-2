@@ -9,7 +9,7 @@ export const restaurantRoutes = ( ): Router => {
     router.post('/restaurant', restaurantController.addRestaurant);
     router.post('/restaurants', restaurantController.addRestaurants);
     router.get('/restaurants', restaurantController.getAllRestaurant);
-    router.get('/:id/restaurantLocation:' , restaurantController.getRestaurantLocation);
+    router.get('/restaurantLocation/:id' , restaurantController.getRestaurantLocation);
     router.delete('/restaurant/:id', restaurantController.deleteRestaurant);
 
     return router;
