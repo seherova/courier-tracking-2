@@ -9,69 +9,79 @@ class CourierController {
     }
 */
 
-private _innerCourierAddFn = (courier: Courier) => {
-  
-  const{name, surname, latitude, longitude, isAvailable} = courier;
+  private _innerCourierAddFn = (courier: Courier) => {
+    const { name, surname, latitude, longitude, isAvailable } = courier;
 
-  const courierInstance : Courier = new Courier(name, surname, latitude, longitude, isAvailable);
-  return courierInstance.save();
-};
+    const courierInstance: Courier = new Courier(
+      name,
+      surname,
+      latitude,
+      longitude,
+      isAvailable
+    );
+    return courierInstance.save();
+  };
 
   public addCouriers = async (req: Request, res: Response) => {
-   
     console.log(req.body);
     const couriers = req.body as Courier[];
 
-    try{
-      for(const courier of couriers){
-         
-          await this._innerCourierAddFn(courier)
+    try {
+      for (const courier of couriers) {
+        await this._innerCourierAddFn(courier);
       }
       res.status(201).send("Courier added succesfully!");
-    } catch (err:any){
+    } catch (err: any) {
       res.status(400).send(err.message);
     }
   };
 
-  public addCourier= async(req: Request, res: Response)=> { 
-    try{
+  public addCourier = async (req: Request, res: Response) => {
+    try {
       await this._innerCourierAddFn(req.body);
       res.status(201).send("Courier added succesfully!");
-    } catch(err: any){
+    } catch (err: any) {
       res.status(400).send(err.message);
     }
   };
 
-  deleteCourier = async(req:Request, res: Response) => {
-    const {id} = req.params;
+  deleteCourier = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-    try{
-      const courier = new Courier;
+    try {
+      const courier = new Courier();
       await courier.delete(id);
-      res.status(200).send('Courier deleted succesfully!')
-    } catch(err: any){
+      res.status(200).send("Courier deleted succesfully!");
+    } catch (err: any) {
       res.status(400).send(err.message);
     }
-  }
+  };
 
- updateCourier = async(req : Request, res : Response) => {
-  console.log("Patch request received for updating courier");
-  const {id} = req.params;
-  const updateData = req.body as Partial<CourierEntity>;
+  updateCourier = async (req: Request, res: Response) => {
+    console.log("Patch request received for updating courier");
+    const { id } = req.params;
+    const updateData = req.body as Partial<CourierEntity>;
 
-  try{
-    const courier = new Courier();
-    await courier.update(id, updateData);
-    res.status(200).send('updated courier succesfully!')
-  }catch(e: any){
-    res.status(400).send(e.message);
-  }
- }
- 
-  public getAllCouriers = (req: Request, res: Response): void => {};
+    try {
+      const courier = new Courier();
+      await courier.update(id, updateData);
+      res.status(200).send("updated courier succesfully!");
+    } catch (e: any) {
+      res.status(400).send(e.message);
+    }
+  };
+
+  getAllCouriers = async (req: Request, res: Response) => {
+    try {
+      const courier = new Courier();
+      const couriers = await courier.findAll();
+      res.status(200).json(couriers);
+    } catch (e: any) {
+      res.status(400).send(e.message);
+    }
+  };
 
   public getCourierLocation = (req: Request, res: Response): void => {};
-  
 }
 
 export const courierController = new CourierController();

@@ -33,4 +33,3 @@ export class MongoDBClient {
     return this.getInstance()._database;
   }
 }
-
