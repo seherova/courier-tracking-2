@@ -51,9 +51,7 @@ private _innerCourierAddFn = (courier: Courier) => {
       res.status(200).send('Courier deleted succesfully!')
     } catch(err: any){
       res.status(400).send(err.message);
-
     }
-
   }
 
   public getAllCouriers = (req: Request, res: Response): void => {};
