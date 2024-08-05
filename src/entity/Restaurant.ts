@@ -1,5 +1,6 @@
 import { Collection, ObjectId } from "mongodb";
 import { MongoDBClient } from "../db/MongoDBClient";
+import { CourierEntity } from "./Courier";
 
 export interface RestaurantEntity {
   name: string;
@@ -64,6 +65,26 @@ export class Restaurant {
       throw new Error('Failed to delete restaurant');
     }
 
+  }
+
+  async update(id: string, updateData: Partial<RestaurantEntity>): Promise<void>{
+    const restaurantCollections : Collection<RestaurantEntity> = this._db.collection('Restaurant');
+
+    try{
+      const objectId = new ObjectId(id);
+
+      const result = await restaurantCollections.updateOne(
+        {_id : objectId},
+        {$set : updateData}
+        );
+
+        if(result.matchedCount===0){
+          throw new Error('Failed to updated restaurant: Not found');
+        }
+    } catch(e: any){
+      console.error('Failed to updated courier:',e);
+      throw new Error('Failed to update courier');
+    }
   }
 }
 

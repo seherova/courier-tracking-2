@@ -11,6 +11,7 @@ export const restaurantRoutes = ( ): Router => {
     router.get('/restaurants', restaurantController.getAllRestaurant);
     router.get('/restaurantLocation/:id' , restaurantController.getRestaurantLocation);
     router.delete('/restaurant/:id', restaurantController.deleteRestaurant);
+    router.patch('/restaurant/:id', restaurantController.updateRestaurant);
 
     return router;
 }

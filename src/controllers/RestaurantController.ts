@@ -53,6 +53,20 @@ class RestaurantController {
     }
     };
 
+    updateRestaurant = async (req: Request, res: Response) => {
+
+        const {id} = req.params;
+        const updateData = req.body as Partial<RestaurantEntity>;
+
+        try{
+            const restaurant = new Restaurant();
+            await restaurant.update(id, updateData);
+            res.status(200).send('Restaurant updated succesfully!');
+        }catch(e: any){
+            res.status(400).send(e.message);
+        }
+    }
+
  
 
   public getAllRestaurant = (req: Request, res: Response): void => {};
