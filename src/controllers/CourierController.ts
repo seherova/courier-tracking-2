@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { request, Request, Response } from "express";
 import { CourierService } from "../service/CourierService";
 import { Courier, CourierEntity } from "../entity/Courier";
 
@@ -13,8 +13,8 @@ private _innerCourierAddFn = (courier: Courier) => {
   
   const{name, surname, latitude, longitude, isAvailable} = courier;
 
-  const courier_ : Courier = new Courier(name, surname, latitude, longitude, isAvailable);
-  return courier_.save();
+  const courierInstance : Courier = new Courier(name, surname, latitude, longitude, isAvailable);
+  return courierInstance.save();
 };
 
   public addCouriers = async (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ private _innerCourierAddFn = (courier: Courier) => {
          
           await this._innerCourierAddFn(courier)
       }
-      res.status(201).send("OK");
+      res.status(201).send("Courier added succesfully!");
     } catch (err:any){
       res.status(400).send(err.message);
     }
@@ -36,7 +36,7 @@ private _innerCourierAddFn = (courier: Courier) => {
   public addCourier= async(req: Request, res: Response)=> { 
     try{
       await this._innerCourierAddFn(req.body);
-      res.status(201).send("OK");
+      res.status(201).send("Courier added succesfully!");
     } catch(err: any){
       res.status(400).send(err.message);
     }
@@ -54,6 +54,20 @@ private _innerCourierAddFn = (courier: Courier) => {
     }
   }
 
+ updateCourier = async(req : Request, res : Response) => {
+  console.log("Patch request received for updating courier");
+  const {id} = req.params;
+  const updateData = req.body as Partial<CourierEntity>;
+
+  try{
+    const courier = new Courier();
+    await courier.update(id, updateData);
+    res.status(200).send('updated courier succesfully!')
+  }catch(e: any){
+    res.status(400).send(e.message);
+  }
+ }
+ 
   public getAllCouriers = (req: Request, res: Response): void => {};
 
   public getCourierLocation = (req: Request, res: Response): void => {};
