@@ -19,7 +19,7 @@ export class MongoDBClient {
 
     const client = new MongoClient(uri);
     this._database = client.db(dbName);
-    
+
     await client.connect();
   }
   static getInstance() {
@@ -34,16 +34,3 @@ export class MongoDBClient {
   }
 }
 
-//restCollection
-// const restCollection = MongoDBClient.db.collection("restaurants")
-
-// try {
-//     const insertManyResult = await restCollection.insertMany({
-//         restName: "sdasa"
-//     });
-//     console.log(`${insertManyResult.insertedCount} documents successfully inserted.\n`);
-//   } catch (err) {
-//     console.error(`Something went wrong trying to insert the new documents: ${err}\n`);
-//   }
-
-//bunun üzerinden mongo db ye ulaşacağım.
