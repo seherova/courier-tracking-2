@@ -41,33 +41,30 @@ class RestaurantController {
     }
   };
 
-  deleteRestaurant = async (req : Request, res: Response) => {
-    const {id} = req.params;
+  deleteRestaurant = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-    try{
-        const restaurant = new Restaurant();
-        await restaurant.delete(id);
-        res.status(200).send('Restaurant deleted successfully!')
-    }catch(err: any){
-        res.status(400).send(err.message);
+    try {
+      const restaurant = new Restaurant();
+      await restaurant.delete(id);
+      res.status(200).send("Restaurant deleted successfully!");
+    } catch (err: any) {
+      res.status(400).send(err.message);
     }
-    };
+  };
 
-    updateRestaurant = async (req: Request, res: Response) => {
+  updateRestaurant = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const updateData = req.body as Partial<RestaurantEntity>;
 
-        const {id} = req.params;
-        const updateData = req.body as Partial<RestaurantEntity>;
-
-        try{
-            const restaurant = new Restaurant();
-            await restaurant.update(id, updateData);
-            res.status(200).send('Restaurant updated succesfully!');
-        }catch(e: any){
-            res.status(400).send(e.message);
-        }
+    try {
+      const restaurant = new Restaurant();
+      await restaurant.update(id, updateData);
+      res.status(200).send("Restaurant updated succesfully!");
+    } catch (e: any) {
+      res.status(400).send(e.message);
     }
-
- 
+  };
 
   public getAllRestaurant = (req: Request, res: Response): void => {};
 
