@@ -99,6 +99,21 @@ export class Restaurant {
     }
   }
 
+  async locationById(id: string): Promise<Partial<RestaurantEntity>>{
+    const restaurantCollections: Collection<RestaurantEntity> = this._db.collection('Restaurant');
+    try{
+      const objectId = new ObjectId(id);
+      const restaurants = await restaurantCollections.findOne({_id : objectId});
+      if(!restaurants){
+        throw new Error('Restaurants not found!!');
+      }
+      return({latitude: restaurants.latitude, longitude: restaurants.longitude});
+    } catch(e: any){
+      console.error("Failed to fetch restaurant location:", e);
+    throw new Error("Failed to fetch restaurant location");
+    }
+  }
+
 
 }
 

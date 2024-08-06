@@ -77,6 +77,17 @@ class RestaurantController {
     }
   };
 
-  public getRestaurantLocation = (req: Request, res: Response): void => {};
+  getRestaurantLocation = async (req: Request, res: Response) => {
+    const {id} = req.params;
+
+    try{
+      const restaurant = new Restaurant();
+      const restaurantLocation = await restaurant.locationById(id);
+      res.status(200).send(restaurantLocation);
+    }catch(e: any){
+      res.status(400).send(e.message);
+
+    }
+  };
 }
 export const restaurantController = new RestaurantController(); //instance oluşturduk. routes için (herhangi bi class)
