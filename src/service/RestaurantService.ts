@@ -11,7 +11,7 @@ class RestaurantService {
     this.restaurants.push(restaurant);
   }
 
-  getAllRestaurants() {
+  getAllRestaurants(): Restaurant[] {
     return this.restaurants;
   }
 

@@ -86,54 +86,19 @@ export class Restaurant {
       throw new Error('Failed to update courier');
     }
   }
-}
 
-/*
+  async findAll(): Promise<RestaurantEntity[]>{
+    const restaurantCollections: Collection<RestaurantEntity> = this._db.collection("Restaurant");
 
-
-class Test {
-   name?: string;
-    age?: number;
-}
-
-
-class Test2 {
-    private _name?: string;
-    private _age: number;
-
-
-    get age() {
-        return this._age
+    try{
+      const restaurants = await restaurantCollections.find().toArray();
+      return restaurants;
+    } catch(e: any){
+      console.error('Failed to fetch restaurants', e);
+      throw new Error("Failed to fetch restaurants");
     }
-
-    set age(value: number) {
-        this.age = value
-    }
- }
- 
-
-const t = new Test();
-t.name = "aaaa"
+  }
 
 
-
-export default class Game_Old {
-    public name: string;
-     public price: number; 
-     public category: string;
-      public id?: Objestrstring;ingctId
-    constructor(name: string,  price: number,  category: string) {
-        this.name = name
-    }
 }
 
-export default class Game {
-    constructor(public name: string, public price: number, public category: string, public id?: ObjectId) {}
-}
-
-
-const g = new Game("aaaa",11,"bbb")
-
-console.log(g.name)
-
-*/
