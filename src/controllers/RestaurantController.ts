@@ -1,6 +1,5 @@
 import { Collection } from "mongodb";
 import { Restaurant, RestaurantEntity } from "../entity/Restaurant";
-import { RestaurantService } from "../service/RestaurantService";
 import { Request, Response } from "express";
 import { Courier } from "../entity/Courier";
 
@@ -67,26 +66,25 @@ class RestaurantController {
     }
   };
 
-  getAllRestaurant = async (req: Request, res: Response) => {
-    try{
+  getAllRestaurants = async (req: Request, res: Response) => {
+    try {
       const restaurant = new Restaurant();
       const restaurants = await restaurant.findAll();
       res.status(200).send(restaurants);
-    }catch(e: any){
+    } catch (e: any) {
       res.status(400).send(e.message);
     }
   };
 
   getRestaurantLocation = async (req: Request, res: Response) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
-    try{
+    try {
       const restaurant = new Restaurant();
       const restaurantLocation = await restaurant.locationById(id);
       res.status(200).send(restaurantLocation);
-    }catch(e: any){
+    } catch (e: any) {
       res.status(400).send(e.message);
-
     }
   };
 }

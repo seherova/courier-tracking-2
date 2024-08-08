@@ -10,7 +10,6 @@ export const courierRoutes = (): Router => {
   router.get("/courierlocation/:id", courierController.getCourierLocation);
   router.delete("/courier/:id", courierController.deleteCourier);
   router.patch("/courier/:id", courierController.updateCourier);
-  
 
   return router;
 };
