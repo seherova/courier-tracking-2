@@ -6,7 +6,7 @@ class CourierController {
   //private courierService: CourierService;
   /*  constructor(courierService: CourierService){
         this.courierService = courierService;
-    }
+     }
 */
 
   private _innerCourierAddFn = (courier: Courier) => {
@@ -58,7 +58,7 @@ class CourierController {
   };
 
   updateCourier = async (req: Request, res: Response) => {
-    console.log("Patch request received for updating courier");
+
     const { id } = req.params;
     const updateData = req.body as Partial<CourierEntity>;
 
