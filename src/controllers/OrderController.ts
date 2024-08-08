@@ -1,32 +1,29 @@
-import { Order } from "../entity/Order";
+import { Order, OrderEntity } from "../entity/Order";
 import { Request, Response } from "express";
 
-class OrderController{
+class OrderController {
+  private _innerOrderAddFn = async (orderData: Partial<OrderEntity>) => {
+    const { customerId, restaurantId, status } = orderData;
 
-
-private _innerOrderAddFn = async(orderData: Partial<Order>) => {
-    const {customerId, restaurantId, status} = orderData;
-
-    if ( !customerId || !restaurantId) {
-        throw new Error("Missing required order fields");
-      }
-    const orderInstance : Order = new Order(
-      //  orderId, 
-        customerId, 
-        restaurantId, 
-        status
+    if (!customerId || !restaurantId) {
+      throw new Error("Missing required order fields");
+    }
+    const orderInstance: Order = new Order(
+      //  orderId,
+      customerId,
+      restaurantId,
+      status
     );
     return orderInstance.save();
-}
+  };
 
-
-addOrder = async (req: Request, res: Response) => {
+  addOrder = async (req: Request, res: Response) => {
     // console.log(req.body);
     // const orders = req.body as Order[];
     try {
-        // for(const order of orders){
-        //     await this._innerOrderAddFn(order);
-        // }
+      // for(const order of orders){
+      //     await this._innerOrderAddFn(order);
+      // }
       await this._innerOrderAddFn(req.body);
       res.status(201).send("Order created successfully.");
     } catch (e: any) {
@@ -36,7 +33,6 @@ addOrder = async (req: Request, res: Response) => {
 
   updateOrderStatus = async (req: Request, res: Response) => {
     const { id, status } = req.body;
-
 
     if (!id || !status) {
       return res.status(400).send("Order ID and status are required");
@@ -66,7 +62,7 @@ addOrder = async (req: Request, res: Response) => {
         return res.status(404).send("Order not found");
       }
 
-      res.status(200).json(result);
+      res.status(201).json(result);
     } catch (e: any) {
       res.status(400).send(e.message);
     }

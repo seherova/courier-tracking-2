@@ -57,7 +57,6 @@ class CourierController {
   };
 
   updateCourier = async (req: Request, res: Response) => {
-
     const { id } = req.params;
     const updateData = req.body as Partial<CourierEntity>;
 
@@ -81,13 +80,13 @@ class CourierController {
   };
 
   getCourierLocation = async (req: Request, res: Response) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
-    try{
+    try {
       const courier = new Courier();
       const courierlocation = await courier.locationById(id);
       res.status(200).json(courierlocation);
-    }catch(e: any){
+    } catch (e: any) {
       res.status(400).send(e.message);
     }
   };
