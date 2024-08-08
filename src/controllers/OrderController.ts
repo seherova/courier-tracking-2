@@ -1,3 +1,6 @@
+
+import { ObjectId } from "mongodb";
+import { CourierOrder } from "../entity/CourierOrder";
 import { Order, OrderEntity } from "../entity/Order";
 import { Request, Response } from "express";
 
@@ -78,6 +81,20 @@ class OrderController {
       res.status(400).send(e.message);
     }
   };
+
+  assignOrderToCourier = async (req: Request, res: Response) => {
+    try {
+    const { courierId, orderId } = req.body as {courierId: string, orderId: string};
+
+   
+  
+    const courierOrder = new CourierOrder( new ObjectId(courierId),  new ObjectId(orderId));
+    const result = await courierOrder.save();
+    res.status(200).json(result);
+  } catch (e: any) {
+    res.status(400).send(e.message);
+  }
+  }
 }
 
 export const orderController = new OrderController();
