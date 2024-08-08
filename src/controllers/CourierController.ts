@@ -1,5 +1,4 @@
 import { request, Request, Response } from "express";
-import { CourierService } from "../service/CourierService";
 import { Courier, CourierEntity } from "../entity/Courier";
 
 class CourierController {
