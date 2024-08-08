@@ -5,13 +5,13 @@ class OrderController{
 
 
 private _innerOrderAddFn = async(orderData: Partial<Order>) => {
-    const {orderId, customerId, restaurantId, status} = orderData;
+    const {customerId, restaurantId, status} = orderData;
 
-    if (!orderId || !customerId || !restaurantId) {
+    if ( !customerId || !restaurantId) {
         throw new Error("Missing required order fields");
       }
     const orderInstance : Order = new Order(
-        orderId, 
+      //  orderId, 
         customerId, 
         restaurantId, 
         status
@@ -20,7 +20,7 @@ private _innerOrderAddFn = async(orderData: Partial<Order>) => {
 }
 
 
-createOrder = async (req: Request, res: Response) => {
+addOrder = async (req: Request, res: Response) => {
     // console.log(req.body);
     // const orders = req.body as Order[];
     try {
@@ -35,15 +35,16 @@ createOrder = async (req: Request, res: Response) => {
   };
 
   updateOrderStatus = async (req: Request, res: Response) => {
-    const { orderId, status } = req.body;
+    const { id, status } = req.body;
 
-    if (!orderId || !status) {
+
+    if (!id || !status) {
       return res.status(400).send("Order ID and status are required");
     }
 
     try {
       const order = new Order();
-      await order.updateStatus(orderId, status);
+      await order.updateStatus(id, status);
       res.status(200).send("Order status updated successfully.");
     } catch (e: any) {
       res.status(400).send(e.message);
@@ -51,15 +52,15 @@ createOrder = async (req: Request, res: Response) => {
   };
 
   getOrder = async (req: Request, res: Response) => {
-    const { orderId } = req.params;
+    const { id } = req.params;
 
-    if (!orderId) {
+    if (!id) {
       return res.status(400).send("Order ID is required");
     }
 
     try {
       const order = new Order();
-      const result = await order.findById(orderId);
+      const result = await order.findById(id);
 
       if (!result) {
         return res.status(404).send("Order not found");
