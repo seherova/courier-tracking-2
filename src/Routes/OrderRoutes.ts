@@ -4,7 +4,7 @@ import { orderController } from "../controllers/OrderController";
 export const orderRoutes = (): Router => {
   const router = Router();
 
-  router.post("/orders", orderController.addOrder);
+  router.post("/orders", orderController.createOrder);
   router.post("/orders/assignOrderToCourier", orderController.assignOrderToCourier);
   router.post("/ordersStatus/:id", orderController.updateOrderStatus);
   router.get("/orders", orderController.getAllOrders);

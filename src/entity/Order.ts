@@ -1,11 +1,12 @@
 import { Collection, ObjectId } from "mongodb";
 import { MongoDBClient } from "../db/MongoDBClient";
+import { OrderStatus } from "./OrderStatus";
 
 export interface OrderEntity {
-  orderId: string;
+  _id?: ObjectId;
   customerId: string;
   restaurantId: string;
-  status: string; //// e.g., "active", "assigned", "in-progress", "completed", "cancelled"
+  status: number; //// e.g., "active", "assigned", "in-progress", "completed", "cancelled"
 }
 
 export class Order {
@@ -13,22 +14,21 @@ export class Order {
   id?: string;
 
   constructor(
-    public orderId?: string,
     public customerId?: string,
     public restaurantId?: string,
-    public status: string = "active"
+    public status?: number
   ) {
     this._db = MongoDBClient.db;
   }
 
   async save() {
-    if (this.orderId && this.customerId && this.restaurantId && this.status) {
+    if ( this.customerId && this.restaurantId && this.status) {
       const orderCollection: Collection<OrderEntity> =
         this._db.collection("Order");
 
       try {
         return orderCollection.insertOne({
-          orderId: this.orderId,
+         
           customerId: this.customerId,
           restaurantId: this.restaurantId,
           status: this.status,
@@ -45,7 +45,7 @@ export class Order {
   // sonradan statusun sınırlayabilirsin
   //  "active", "assigned", "in-progress", "completed", "cancelled"
 
-  async updateStatus(id: string, status: string) {
+  async updateStatus(id: string, status:OrderStatus ) {
     const orderCollection: Collection<OrderEntity> =
       this._db.collection("Order");
 

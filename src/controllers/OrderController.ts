@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { CourierOrder } from "../entity/CourierOrder";
 import { Order, OrderEntity } from "../entity/Order";
 import { Request, Response } from "express";
+import { IUpdateOrderStatusParams } from "../entity/OrderStatus";
 
 class OrderController {
   private _innerOrderAddFn = async (orderData: Partial<OrderEntity>) => {
@@ -12,7 +13,7 @@ class OrderController {
       throw new Error("Missing required order fields");
     }
     const orderInstance: Order = new Order(
-      //  orderId,
+      
       customerId,
       restaurantId,
       status
@@ -20,7 +21,7 @@ class OrderController {
     return orderInstance.save();
   };
 
-  addOrder = async (req: Request, res: Response) => {
+  createOrder = async (req: Request, res: Response) => {
     // console.log(req.body);
     // const orders = req.body as Order[];
     try {
@@ -34,9 +35,8 @@ class OrderController {
     }
   };
 
-  updateOrderStatus = async (req: Request, res: Response) => {
-    const { id, status } = req.body;
-
+  updateOrderStatus = async (req: Request<any, any, IUpdateOrderStatusParams>, res: Response) => {
+    const { id, status } = req.body
     if (!id || !status) {
       return res.status(400).send("Order ID and status are required");
     }
@@ -94,6 +94,13 @@ class OrderController {
   } catch (e: any) {
     res.status(400).send(e.message);
   }
+  }
+
+  getTrendyolOrders = async(req: Request, res: Response) => {
+    const {storeId } = req.body;
+   
+    
+
   }
 }
 
