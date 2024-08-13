@@ -4,6 +4,7 @@ import { CourierOrder } from "../entity/CourierOrder";
 import { Order, OrderEntity } from "../entity/Order";
 import { Request, Response } from "express";
 import { IUpdateOrderStatusParams } from "../entity/OrderStatus";
+import { TrendyolAPI } from "./trendyol-api";
 
 class OrderController {
   private _innerOrderAddFn = async (orderData: Partial<OrderEntity>) => {
@@ -99,7 +100,9 @@ class OrderController {
   getTrendyolOrders = async(req: Request, res: Response) => {
     const {storeId } = req.body;
    
-    
+    const ty = new TrendyolAPI();
+    const result = await ty.getOrders(storeId);
+    res.status(200).json(result);
 
   }
 }

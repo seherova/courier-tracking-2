@@ -9,5 +9,6 @@ export const orderRoutes = (): Router => {
   router.post("/ordersStatus/:id", orderController.updateOrderStatus);
   router.get("/orders", orderController.getAllOrders);
   router.get("/order/:id", orderController.getOrder);
+  router.get('/orders/trendyol', orderController.getTrendyolOrders);
   return router;
 };
