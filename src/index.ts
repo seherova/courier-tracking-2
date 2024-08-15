@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
-import { orderRoutes } from "./routes/OrderRoutes";
-import { customerRoutes } from "./routes/CustomerRoutes";
-import { courierRoutes } from "./routes/CourierRoutes";
-import { restaurantRoutes } from "./routes/RestaurantRoutes";
+import { orderRoutes } from "./Routes/order-routes";
+import { customerRoutes } from "./Routes/customer-routes";
+import { courierRoutes } from "./Routes/courier-routes";
+import { restaurantRoutes } from "./Routes/restaurant-routes";
 
 
 dotenv.config();

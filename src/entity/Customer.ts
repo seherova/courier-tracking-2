@@ -34,7 +34,7 @@ export class Customer {
     this._db = MongoDBClient.db;
   }
 
-  async save() {
+  async create() {
     if (this.name && this.surname && this.phone && this.address) {
       const customerCollections: Collection<CustomerEntity> =
         this._db.collection("Customer");
