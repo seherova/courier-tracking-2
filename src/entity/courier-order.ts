@@ -16,7 +16,7 @@ export class CourierOrder{
         this._db = MongoDBClient.db;
     }
 
-    async save(){
+    async create(){
         if(this.courierId && this.orderId){
             const courierOrderCollections : Collection<CourierOrderEntity> = this._db.collection("CourierOrder");
 

@@ -1,17 +1,28 @@
-import { Customer, CustomerEntity } from "../entity/Customer";
+
 import { Request, Response } from "express";
+import { Customer, CustomerEntity } from "../entity/customer";
+import { CommandInvoker } from "../entity/commands/command-invoker";
+import { CreateCustomerCommand, Customer_LocationById, DeleteCustomerCommand, FindAllCustomersCommand, UpdateCustomerCommand } from "../entity/commands/customer-command";
+
 
 class CustomerController {
-  private _innerCustomerFn = (customer: CustomerEntity) => {
-    const { name, surname, phone, address } = customer;
+ 
 
-    const cust: Customer = new Customer(name, surname, phone, address);
-    return cust.save();
-  };
+  createCustomer = async (req: Request, res: Response) => {
+    console.log(req.body);
+    const customerData = req.body as CustomerEntity;
 
-  addCustomer = async (req: Request, res: Response) => {
+    const customer = new Customer(
+      customerData.name,
+      customerData.surname,
+      customerData.phone,
+      customerData.address
+    );
+
+
     try {
-      await this._innerCustomerFn(req.body);
+      await CommandInvoker.executeCommand(new CreateCustomerCommand(customer));
+      
       res.status(201).send("Ok");
     } catch (e: any) {
       res.status(400).send(e.message);
@@ -23,7 +34,7 @@ class CustomerController {
 
     try {
       const customer = new Customer();
-      await customer.delete(id);
+      await CommandInvoker.executeCommand(new DeleteCustomerCommand(customer,id))
       res.status(201).send("Customer deleted successfully!");
     } catch (err: any) {
       res.status(400).send(err.message);
@@ -35,14 +46,14 @@ class CustomerController {
 
     try {
       const customer = new Customer();
-      await customer.update(id, updateData);
+      await CommandInvoker.executeCommand(new UpdateCustomerCommand(customer, id, updateData));
       res.status(201).send("Customer updated succesfully");
     } catch (e: any) {
       res.status(400).send(e.message);
     }
   };
 
-  getCustomer = async (req: Request, res: Response) => {
+  getAllCustomers = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     if (!id) {
@@ -51,8 +62,8 @@ class CustomerController {
 
     try {
       const customer = new Customer();
-      const result = await customer.findById(id);
-
+      const result = await CommandInvoker.executeCommand(new FindAllCustomersCommand(customer));
+      console.log(result);
       if (!result) {
         return res.status(404).send("Customer not found");
       }
@@ -62,11 +73,12 @@ class CustomerController {
     }
   };
 
-  getAllCustomers = async (req: Request, res: Response) => {
+  getCustomerLocation = async (req: Request, res: Response) => {
+    const{id} = req.params;
     try {
       const customer = new Customer();
-      const customers = await customer.findAll();
-      res.status(201).send("Getting all customers is succesfully!");
+      const location = await CommandInvoker.executeCommand(new Customer_LocationById(customer, id))
+      console.log(location);
     } catch (e: any) {
       res.status(400).send(e.message);
     }

@@ -25,7 +25,7 @@ export class Courier {
     this._db = MongoDBClient.db;
   }
 
-  save() {
+  create() {
     if (
       this.name &&
       this.surname &&

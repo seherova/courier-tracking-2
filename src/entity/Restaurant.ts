@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from "mongodb";
 import { MongoDBClient } from "../db/MongoDBClient";
-import { CourierEntity } from "./Courier";
+import { CourierEntity } from "./courier";
 
 export interface RestaurantEntity {
   name: string;
@@ -19,7 +19,7 @@ export class Restaurant {
     this._db = MongoDBClient.db;
   }
 
-  save() {
+  create() {
     if (this.name && this.latitude && this.longitude) {
       //const courierCollections = db.collection('Restaurant')
       const restaurantCollections: Collection<RestaurantEntity> =
