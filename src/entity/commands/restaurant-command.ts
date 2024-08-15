@@ -1,4 +1,6 @@
-import { Restaurant, RestaurantEntity } from "./restaurant";
+import { Restaurant, RestaurantEntity } from "../Restaurant";
+
+ 
 
 export class CreateRestaurantCommand implements Command{
 

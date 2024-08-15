@@ -5,9 +5,10 @@ import { CourierOrder } from "../entity/courier-order";
 import { Request, Response } from "express";
 import { IUpdateOrderStatusParams } from "../entity/order-status";
 import { TrendyolAPI } from "./trendyol-api";
-import { Order, OrderEntity } from "../entity/order";
+
 import { CommandInvoker } from "../entity/commands/command-invoker";
 import { CreateOrderCommand, FindAllOrderCommand, FindOrderByIdCommand, UpdateOrderCommand } from "../entity/commands/order-command";
+import { Order, OrderEntity } from "../entity/Order";
 
 class OrderController {
   

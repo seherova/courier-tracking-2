@@ -1,4 +1,5 @@
-import { Order } from "../order";
+import { Order } from "../Order";
+
 
 export class CreateOrderCommand implements Command {
   constructor(private order: Order) {}
