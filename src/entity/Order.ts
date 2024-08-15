@@ -1,9 +1,9 @@
 import { Collection, ObjectId } from "mongodb";
 import { MongoDBClient } from "../db/MongoDBClient";
-import { OrderStatus } from "./OrderStatus";
+import { OrderStatus } from "./order-status";
 
 export interface OrderEntity {
-  _id?: ObjectId;
+  //_id?: ObjectId;
   customerId: string;
   restaurantId: string;
   status: number; //// e.g., "active", "assigned", "in-progress", "completed", "cancelled"
@@ -21,7 +21,7 @@ export class Order {
     this._db = MongoDBClient.db;
   }
 
-  async save() {
+  async create() {
     if ( this.customerId && this.restaurantId && this.status) {
       const orderCollection: Collection<OrderEntity> =
         this._db.collection("Order");
