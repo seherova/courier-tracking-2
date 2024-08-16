@@ -21,8 +21,8 @@ export class TrendyolAPI{
                 password : this.secretKey!
             },
             headers: {
-                "x-agentname": 'test', 
-                "x-executor-user": 'test',
+                "x-agentname": this.supplierId +'-'+'SelfIntegration', 
+                "x-executor-user": 'deneme@gmail.com',
             }
         }) 
     return res.data;
